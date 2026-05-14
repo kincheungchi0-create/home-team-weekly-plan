@@ -6,23 +6,29 @@
   <title>Home Team Weekly Plan</title>
   <style>
     :root {
-      --ink: #172033;
-      --muted: #5c667a;
-      --line: #d8dee9;
-      --paper: #fbfaf7;
-      --blue: #1f4e78;
-      --blue-soft: #eaf3fb;
-      --green-soft: #edf7f0;
-      --rose-soft: #fff0ee;
-      --amber-soft: #fff6df;
-      --table-head: #dcebf7;
+      --ink: #2f2923;
+      --muted: #74665b;
+      --line: #ead9c5;
+      --paper: #fffaf2;
+      --blue: #4d6f73;
+      --blue-soft: #eef7f5;
+      --green-soft: #eef7e7;
+      --rose-soft: #fff0ec;
+      --amber-soft: #fff3d8;
+      --table-head: #f7e7ce;
+      --card: #fffdf8;
+      --warm: #d9825b;
+      --shadow: 0 16px 40px rgba(95, 64, 38, 0.10);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: linear-gradient(180deg, #fbfaf7 0%, #f1f6f4 48%, #f8f4ec 100%);
+      background:
+        radial-gradient(circle at top left, rgba(255, 204, 153, 0.35), transparent 32rem),
+        radial-gradient(circle at top right, rgba(151, 190, 177, 0.28), transparent 30rem),
+        linear-gradient(180deg, #fffaf2 0%, #f6efe3 46%, #fff8ed 100%);
       color: var(--ink);
       font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       font-size: 15px;
@@ -37,14 +43,14 @@
       justify-content: flex-end;
       gap: 8px;
       padding: 10px 32px;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 250, 242, 0.94);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(10px);
     }
 
     .language-switch button {
       border: 1px solid #b9cfe0;
-      background: #ffffff;
+      background: var(--card);
       color: var(--blue);
       border-radius: 999px;
       padding: 7px 14px;
@@ -62,7 +68,7 @@
 
     header {
       padding: 28px 32px 18px;
-      background: #ffffff;
+      background: rgba(255, 253, 248, 0.97);
       border-bottom: 1px solid var(--line);
       position: sticky;
       top: 49px;
@@ -92,8 +98,8 @@
     nav a {
       color: var(--blue);
       background: var(--blue-soft);
-      border: 1px solid #c7d9e8;
-      border-radius: 6px;
+      border: 1px solid #c9ded9;
+      border-radius: 999px;
       padding: 6px 10px;
       text-decoration: none;
       font-weight: 600;
@@ -128,15 +134,55 @@
 
     .summary-item {
       border: 1px solid var(--line);
-      background: #ffffff;
-      border-radius: 8px;
+      background: var(--card);
+      border-radius: 16px;
       padding: 12px 14px;
+      box-shadow: var(--shadow);
     }
 
     .summary-item strong {
       display: block;
       margin-bottom: 4px;
       color: var(--blue);
+    }
+
+    .reader-tools {
+      position: sticky;
+      top: 137px;
+      z-index: 9;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 20px;
+      padding: 10px;
+      background: rgba(255, 250, 242, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 26px rgba(95, 64, 38, 0.08);
+    }
+
+    .reader-tools span {
+      color: var(--muted);
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .reader-tools button {
+      border: 1px solid #e2c9aa;
+      background: var(--card);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .reader-tools button.active {
+      background: var(--warm);
+      border-color: var(--warm);
+      color: #ffffff;
     }
 
     .rule-list {
@@ -149,9 +195,9 @@
     }
 
     .rule-list li {
-      background: #ffffff;
+      background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 16px;
       padding: 12px;
     }
 
@@ -172,8 +218,9 @@
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
-      background: #ffffff;
-      border-radius: 8px;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
     }
 
     table {
@@ -213,10 +260,14 @@
     .note {
       background: var(--amber-soft);
       border: 1px solid #ead795;
-      border-radius: 8px;
+      border-radius: 16px;
       padding: 12px 14px;
       color: #51441d;
       margin: 0 0 14px;
+    }
+
+    .is-filtered-out {
+      display: none !important;
     }
 
     @media (max-width: 900px) {
@@ -224,7 +275,108 @@
       header, main { padding-left: 16px; padding-right: 16px; }
       .summary, .rule-list { grid-template-columns: 1fr; }
       h1 { font-size: 24px; }
-      th { top: 178px; }
+      .reader-tools { top: 126px; }
+      th { top: 190px; }
+    }
+
+    @media (max-width: 760px) {
+      body { font-size: 14px; }
+      .language-switch {
+        justify-content: center;
+        padding: 8px 12px;
+      }
+      header {
+        position: static;
+        padding-top: 22px;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      nav a {
+        text-align: center;
+        padding: 9px 8px;
+      }
+      main {
+        padding-top: 14px;
+      }
+      .summary {
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .reader-tools {
+        position: sticky;
+        top: 48px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        border-radius: 999px;
+      }
+      .reader-tools span {
+        flex: 0 0 auto;
+      }
+      .reader-tools button {
+        flex: 0 0 auto;
+      }
+      section {
+        margin-bottom: 22px;
+        padding-top: 14px;
+      }
+      .table-wrap {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+      table, thead, tbody, tr, th, td {
+        display: block;
+        width: 100%;
+      }
+      table {
+        min-width: 0;
+      }
+      thead {
+        display: none;
+      }
+      tr {
+        margin: 0 0 14px;
+        padding: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+      tr::before {
+        content: attr(data-day);
+        display: inline-flex;
+        margin-bottom: 8px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: var(--blue-soft);
+        color: var(--blue);
+        font-weight: 800;
+      }
+      td {
+        border: 0;
+        border-top: 1px dashed var(--line);
+        padding: 10px 0;
+      }
+      td:first-child {
+        display: none;
+      }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 4px;
+        color: var(--warm);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .menu-table td:nth-child(5),
+      .hazel-table td {
+        min-width: 0;
+      }
     }
 
     @media print {
@@ -246,11 +398,11 @@
   <div class="lang-view" data-lang="en">
     <header>
       <h1>Home Team Weekly Plan</h1>
-      <p class="subtitle">English view for helpers. Updated 15 May 2026. Weekday home lunch is not counted for Howard/Power because he eats lunch at school.</p>
+      <p class="subtitle">English view for helpers. Updated 15 May 2026. Weekday home lunch is not counted for Howard because he eats lunch at school.</p>
       <nav>
         <a href="#nutrition-en">Nutrition</a>
         <a href="#safety-en">Safety</a>
-        <a href="#menu-en">Adults + Howard/Power</a>
+        <a href="#menu-en">Adults + Howard</a>
         <a href="#hazel-en">Hazel</a>
         <a href="#chores-en">Chores</a>
         <a href="#reminders-en">Reminders</a>
@@ -258,74 +410,83 @@
     </header>
 
     <main>
-      <div class="summary"><div class="summary-item"><strong>Fusilli dinner</strong>Once per week, placed on Thursday dinner with light creamy tomato sauce.</div><div class="summary-item"><strong>School lunch</strong>Monday-Friday lunch is at school for Howard/Power.</div><div class="summary-item"><strong>Calcium plan</strong>Use breakfast, after-school snack and dinner for school days.</div><div class="summary-item"><strong>Hazel sensitivity</strong>No egg and no pumpkin for Hazel.</div></div>
+      <div class="summary"><div class="summary-item"><strong>Fusilli dinner</strong>Once per week, placed on Thursday dinner with light creamy tomato sauce.</div><div class="summary-item"><strong>School lunch</strong>Monday-Friday lunch is at school for Howard.</div><div class="summary-item"><strong>Calcium plan</strong>Use breakfast, after-school snack and dinner for school days.</div><div class="summary-item"><strong>Hazel sensitivity</strong>No egg and no pumpkin for Hazel.</div></div>
 
-      <section id="nutrition-en">
+      <div class="reader-tools" aria-label="Quick view filters">
+        <span>Quick view</span>
+        <button type="button" class="active" data-focus="all">All</button>
+        <button type="button" data-focus="menu">Menu</button>
+        <button type="button" data-focus="hazel">Hazel</button>
+        <button type="button" data-focus="chores">Chores</button>
+        <button type="button" data-focus="rules">Rules</button>
+      </div>
+
+      <section id="nutrition-en" data-section="rules">
         <h2>Nutrition Planning Rules</h2>
-        <ul class="rule-list"><li><strong>Power / Howard calcium</strong><span>Aim to include calcium-rich food every day: milk, plain yogurt, cheese, tofu, calcium-set bean curd, calcium-fortified soy milk, or dark green vegetables.</span></li><li><strong>Power / Howard school lunch</strong><span>On Monday to Friday, Howard/Power eats lunch at school, so home lunch tofu or vegetables should not be counted for his calcium or fiber intake.</span></li><li><strong>After-school calcium</strong><span>On school days, add an after-school calcium snack such as warm milk, plain yogurt, cheese bread, milk custard or banana milk.</span></li><li><strong>Power / Howard daily balance</strong><span>Across breakfast, lunch and dinner, include grains, protein, vegetables/fruit and a calcium source. If dinner has more meat, keep portions smaller and add more vegetables.</span></li><li><strong>Hazel meal structure</strong><span>Hazel lunch and dinner should each include meat/fish plus two vegetables, mixed into congee / noodles / soft rice and chopped very small.</span></li><li><strong>Hazel allergy / sensitivity</strong><span>Do not give Hazel egg or pumpkin. Avoid egg yolk, steamed egg, pancake with egg, pumpkin puree and pumpkin rice for Hazel.</span></li><li><strong>Hazel protein rotation</strong><span>Do not repeat Hazel&#x27;s lunch and dinner protein on the same day. Rotate fish, beef, pork and chicken through the week.</span></li><li><strong>Shared ingredients</strong><span>Use safe parts of the adult meal for Hazel where possible, such as fresh fish, tomato, chayote, spinach or broccoli, but cook separately without salt, soy sauce or strong seasoning.</span></li><li><strong>Fiber check</strong><span>Dinner should always include a clear vegetable dish. Use different vegetables across the week to avoid relying only on choi sum or broccoli.</span></li><li><strong>Protein check</strong><span>Avoid stacking too many heavy protein dishes for the kids in one dinner. If there are two protein dishes, keep one light and increase vegetables.</span></li></ul>
+        <ul class="rule-list"><li><strong>Howard calcium</strong><span>Aim to include calcium-rich food every day: milk, plain yogurt, cheese, tofu, calcium-set bean curd, calcium-fortified soy milk, or dark green vegetables.</span></li><li><strong>Howard school lunch</strong><span>On Monday to Friday, Howard eats lunch at school, so home lunch tofu or vegetables should not be counted for his calcium or fiber intake.</span></li><li><strong>After-school calcium</strong><span>On school days, add an after-school calcium snack such as warm milk, plain yogurt, cheese bread, milk custard or banana milk.</span></li><li><strong>Howard daily balance</strong><span>Across breakfast, lunch and dinner, include grains, protein, vegetables/fruit and a calcium source. If dinner has more meat, keep portions smaller and add more vegetables.</span></li><li><strong>Hazel meal structure</strong><span>Hazel lunch and dinner should each include meat/fish plus two vegetables, mixed into congee / noodles / soft rice and chopped very small.</span></li><li><strong>Hazel allergy / sensitivity</strong><span>Do not give Hazel egg or pumpkin. Avoid egg yolk, steamed egg, pancake with egg, pumpkin puree and pumpkin rice for Hazel.</span></li><li><strong>Hazel protein rotation</strong><span>Do not repeat Hazel&#x27;s lunch and dinner protein on the same day. Rotate fish, beef, pork and chicken through the week.</span></li><li><strong>Shared ingredients</strong><span>Use safe parts of the adult meal for Hazel where possible, such as fresh fish, tomato, chayote, spinach or broccoli, but cook separately without salt, soy sauce or strong seasoning.</span></li><li><strong>Fiber check</strong><span>Dinner should always include a clear vegetable dish. Use different vegetables across the week to avoid relying only on choi sum or broccoli.</span></li><li><strong>Protein check</strong><span>Avoid stacking too many heavy protein dishes for the kids in one dinner. If there are two protein dishes, keep one light and increase vegetables.</span></li></ul>
       </section>
 
-      <section id="safety-en">
+      <section id="safety-en" data-section="rules">
         <h2>Critical Safety Rules</h2>
         <ul class="rule-list critical"><li><strong>Kitchen safety</strong><span>Do not bring Hazel or Howard into the kitchen. Only if there is no other choice and no one can watch Hazel, she may stay in the high chair for a short time.</span></li><li><strong>Hot dishes</strong><span>When taking out hot dishes, use two thick towels and hold both sides carefully. Do not use dish tongs to clamp hot plates or bowls.</span></li><li><strong>High chair safety</strong><span>Hazel can climb. Never leave her alone in the high chair. Put her in the playpen or baby cot if you need to step away.</span></li><li><strong>Small toys</strong><span>Keep Howard&#x27;s small toys away from Hazel&#x27;s playmat. Put small or unsafe toys into a drawer or bag.</span></li><li><strong>Food safety</strong><span>Always check expiry dates and freshness before cooking, especially meat, fish and Hazel&#x27;s food.</span></li><li><strong>Hazel food allergy</strong><span>Hazel should not eat egg or pumpkin. Please check ingredients before giving her pancakes, steamed egg, egg yolk, pumpkin puree or pumpkin rice.</span></li><li><strong>Fever / vaccination</strong><span>If Hazel has fever or after vaccination, monitor her temperature. Tell Mom immediately if fever is over 38C.</span></li></ul>
       </section>
 
-      <section id="menu-en">
-        <h2>Adults + Howard / Power Weekly Menu</h2>
-        <p class="note">For school days, the home lunch column is for adults/helpers only. Howard/Power calcium and fiber should be covered by breakfast, after-school snack and dinner.</p>
+      <section id="menu-en" data-section="menu">
+        <h2>Adults + Howard Weekly Menu</h2>
+        <p class="note">For school days, the home lunch column is for adults/helpers only. Howard calcium and fiber should be covered by breakfast, after-school snack and dinner.</p>
         
     <div class="table-wrap">
       <table class="menu-table">
         <thead><tr><th>Day</th><th>Breakfast</th><th>Lunch note / home lunch</th><th>After-school / calcium snack</th><th>Dinner: method + ingredients</th><th>Soup</th><th>Nutrition focus for kids</th></tr></thead>
-        <tbody><tr><td>Monday</td><td>Sandwiches: bread + avocado + cheese + ham. Serve with warm milk.</td><td>Howard/Power eats lunch at school. Home lunch for adults/helpers only: tomato soup noodles with pork slices, choi sum and dumplings.</td><td>After school: plain yogurt or warm milk + fruit. This calcium snack counts for Howard/Power.</td><td>1. Steamed fresh grouper with ginger and spring onion: steam fish, then add light soy sauce and hot oil for adults.<br>2. Stir-fried sweet potato leaves with garlic: wash well and stir-fry quickly.<br>3. Sweet potato and mushroom stewed rice: sweet potato + minced pork + mushroom + peas + carrot. Keep it moist, not dry.</td><td>Arrowroot, carrot, corn and lean pork soup</td><td>Calcium counted for Howard/Power: warm milk + cheese + after-school yogurt/milk. Fiber/veg: tomato, choi sum, sweet potato leaves, sweet potato. Protein is moderate because dinner uses fish plus small minced pork in rice.</td></tr><tr><td>Tuesday</td><td>Macaroni: macaroni + pork slices + tomato + a little choi sum. Serve with warm milk or plain yogurt.</td><td>Howard/Power eats lunch at school. Home lunch for adults/helpers only: sweet corn chicken macaroni or leftovers.</td><td>After school: cheese bread or plain yogurt + banana.</td><td>1. Braised tomato with beef slices: fresh tomato + beef slices + onion + potato/carrot if available. Make more fresh tomato sauce, not too salty.<br>2. Braised tofu with ba choi: tofu + ba choi + minced pork or light sauce. Braise gently so tofu does not break.<br>3. Stir-fried celery and fresh squid: celery + fresh squid + carrot strips. Stir-fry quickly.<br>Serve with mixed brown and white rice.</td><td>-</td><td>Calcium counted for Howard/Power: breakfast milk/yogurt + after-school cheese/yogurt + dinner tofu/ba choi. Fiber/veg: tomato, ba choi, celery, carrot. Protein: beef + tofu + squid, keep kids&#x27; portions small.</td></tr><tr><td>Wednesday</td><td>Steamed sweet potato + steamed apple + warm milk.</td><td>Howard/Power eats lunch at school. Home lunch for adults/helpers only: plain congee + steamed fresh dumplings + stir-fried lettuce.</td><td>After school: milk custard or warm milk + blueberries.</td><td>1. Creamy tomato salmon rice: salmon + fresh tomato + onion + milk + mushroom + chayote + lettuce. Cook sauce and serve over rice.<br>2. Steamed egg with minced pork and fresh tomato sauce on top: steam soft egg, then add minced pork tomato sauce.<br>3. Stir-fried broccoli with garlic: wash one by one, soak, blanch first, then stir-fry.</td><td>Apple, pear and orange soup</td><td>Calcium counted for Howard/Power: breakfast milk + after-school milk custard/milk + broccoli + steamed egg. Fiber/veg: sweet potato, lettuce, tomato, chayote, broccoli. This is the only broccoli day.</td></tr><tr><td>Thursday</td><td>Sweet potato buns + steamed apple + yogurt.</td><td>Howard/Power eats lunch at school. Home lunch for adults/helpers only: fresh tomato spaghetti with chicken thigh and cucumber strips.</td><td>After school: warm milk or plain yogurt + seasonal fruit.</td><td>1. Dinner fusilli in light creamy tomato sauce: fusilli + salmon cubes + shrimp + mushroom + chayote + small tomato + milk. Keep sauce moist, not dry.<br>2. Stir-fried spinach: wash thoroughly, blanch first, then stir-fry.<br>3. Braised zucchini with fresh mushroom and minced pork: zucchini + fresh mushroom + a little minced pork. Braise softly as a side dish, not as fusilli sauce.</td><td>-</td><td>Calcium counted for Howard/Power: breakfast yogurt + after-school milk/yogurt + milk in sauce + spinach. Fiber/veg: tomato, chayote, mushroom, spinach, zucchini. Fusilli is the planned once-a-week dinner; do not use corn/carrot rice sauce for fusilli.</td></tr><tr><td>Friday</td><td>Soft macaroni: minced chicken + spinach. Serve with warm milk.</td><td>Howard/Power eats lunch at school. Home lunch for adults/helpers only: fried rice with corn, carrot, diced pork and fresh shrimp.</td><td>After school: cheese toast or banana milk.</td><td>1. Steamed flatfish with ginger and spring onion: use flatfish, steam, remove bones carefully for children.<br>2. Steamed egg with minced pork: soft steamed egg + minced pork, light seasoning for adults.<br>3. Braised hairy gourd with pork slices: hairy gourd + thin pork slices + a little garlic. Braise until soft.</td><td>Sugar cane, carrot and pork bones soup</td><td>Calcium counted for Howard/Power: breakfast milk + after-school cheese/banana milk + steamed egg. Fiber/veg: spinach, carrot, hairy gourd. Protein: flatfish plus egg; keep pork slices light.</td></tr><tr><td>Saturday</td><td>Banana pancakes + avocado slices + warm milk.</td><td>White sauce spaghetti: spaghetti + shrimp + scallops + zucchini + mushroom + onion + milk. Keep sauce light and not too dry.</td><td>Afternoon snack: fruit + yogurt or warm milk if lunch intake is light.</td><td>1. Braised pork brisket with carrot and potato: pork brisket + carrot + potato, stew/braise until soft.<br>2. Stir-fried sweet peppers with beef slices: red/yellow/green sweet peppers + beef slices, light sweet-sour taste.<br>3. Stir-fried small cabbage with garlic: wash well and stir-fry quickly.</td><td>-</td><td>Calcium: warm milk + milk in white sauce. Fiber/veg: banana, avocado, zucchini, mushroom, sweet peppers, small cabbage. Dinner has pork and beef, so serve kids small portions.</td></tr><tr><td>Sunday</td><td>Cheese and avocado sandwiches + steamed apple.</td><td>Mixed vegetable congee + steamed dumplings + fried vegetables.</td><td>Afternoon snack: fruit + warm milk or plain yogurt.</td><td>1. Steamed fresh salmon steak with small tomato and ginger: steam salmon steak and keep it moist.<br>2. Stuffed tofu with minced pork: tofu blocks + minced pork + Chinese mushroom. Stuff tofu, pan-fry lightly if needed, then braise in light sauce.<br>3. Stir-fried bean sprouts with garlic: rinse well and stir-fry quickly.<br>Serve with mixed brown and white rice.</td><td>Hairy gourd, carrot, barley, beans and pork bones soup</td><td>Calcium: cheese + tofu. Fiber/veg: avocado, mixed vegetables, tomato, bean sprouts, hairy gourd, carrot. Protein is fish + tofu/pork, keep portions balanced.</td></tr></tbody>
+        <tbody><tr data-day="Monday"><td data-label="Day">Monday</td><td data-label="Breakfast">Sandwiches: bread + avocado + cheese + ham. Serve with warm milk.</td><td data-label="Lunch note / home lunch">Howard eats lunch at school. Home lunch for adults/helpers only: tomato soup noodles with pork slices, choi sum and dumplings.</td><td data-label="After-school / calcium snack">After school: plain yogurt or warm milk + fruit. This calcium snack counts for Howard.</td><td data-label="Dinner: method + ingredients">1. Steamed fresh grouper with ginger and spring onion: steam fish, then add light soy sauce and hot oil for adults.<br>2. Stir-fried sweet potato leaves with garlic: wash well and stir-fry quickly.<br>3. Sweet potato and mushroom stewed rice: sweet potato + minced pork + mushroom + peas + carrot. Keep it moist, not dry.</td><td data-label="Soup">Arrowroot, carrot, corn and lean pork soup</td><td data-label="Nutrition focus for kids">Calcium counted for Howard: warm milk + cheese + after-school yogurt/milk. Fiber/veg: tomato, choi sum, sweet potato leaves, sweet potato. Protein is moderate because dinner uses fish plus small minced pork in rice.</td></tr><tr data-day="Tuesday"><td data-label="Day">Tuesday</td><td data-label="Breakfast">Macaroni: macaroni + pork slices + tomato + a little choi sum. Serve with warm milk or plain yogurt.</td><td data-label="Lunch note / home lunch">Howard eats lunch at school. Home lunch for adults/helpers only: sweet corn chicken macaroni or leftovers.</td><td data-label="After-school / calcium snack">After school: cheese bread or plain yogurt + banana.</td><td data-label="Dinner: method + ingredients">1. Braised tomato with beef slices: fresh tomato + beef slices + onion + potato/carrot if available. Make more fresh tomato sauce, not too salty.<br>2. Braised tofu with ba choi: tofu + ba choi + minced pork or light sauce. Braise gently so tofu does not break.<br>3. Stir-fried celery and fresh squid: celery + fresh squid + carrot strips. Stir-fry quickly.<br>Serve with mixed brown and white rice.</td><td data-label="Soup">-</td><td data-label="Nutrition focus for kids">Calcium counted for Howard: breakfast milk/yogurt + after-school cheese/yogurt + dinner tofu/ba choi. Fiber/veg: tomato, ba choi, celery, carrot. Protein: beef + tofu + squid, keep kids&#x27; portions small.</td></tr><tr data-day="Wednesday"><td data-label="Day">Wednesday</td><td data-label="Breakfast">Steamed sweet potato + steamed apple + warm milk.</td><td data-label="Lunch note / home lunch">Howard eats lunch at school. Home lunch for adults/helpers only: plain congee + steamed fresh dumplings + stir-fried lettuce.</td><td data-label="After-school / calcium snack">After school: milk custard or warm milk + blueberries.</td><td data-label="Dinner: method + ingredients">1. Creamy tomato salmon rice: salmon + fresh tomato + onion + milk + mushroom + chayote + lettuce. Cook sauce and serve over rice.<br>2. Steamed egg with minced pork and fresh tomato sauce on top: steam soft egg, then add minced pork tomato sauce.<br>3. Stir-fried broccoli with garlic: wash one by one, soak, blanch first, then stir-fry.</td><td data-label="Soup">Apple, pear and orange soup</td><td data-label="Nutrition focus for kids">Calcium counted for Howard: breakfast milk + after-school milk custard/milk + broccoli + steamed egg. Fiber/veg: sweet potato, lettuce, tomato, chayote, broccoli. This is the only broccoli day.</td></tr><tr data-day="Thursday"><td data-label="Day">Thursday</td><td data-label="Breakfast">Sweet potato buns + steamed apple + yogurt.</td><td data-label="Lunch note / home lunch">Howard eats lunch at school. Home lunch for adults/helpers only: fresh tomato spaghetti with chicken thigh and cucumber strips.</td><td data-label="After-school / calcium snack">After school: warm milk or plain yogurt + seasonal fruit.</td><td data-label="Dinner: method + ingredients">1. Dinner fusilli in light creamy tomato sauce: fusilli + salmon cubes + shrimp + mushroom + chayote + small tomato + milk. Keep sauce moist, not dry.<br>2. Stir-fried spinach: wash thoroughly, blanch first, then stir-fry.<br>3. Braised zucchini with fresh mushroom and minced pork: zucchini + fresh mushroom + a little minced pork. Braise softly as a side dish, not as fusilli sauce.</td><td data-label="Soup">-</td><td data-label="Nutrition focus for kids">Calcium counted for Howard: breakfast yogurt + after-school milk/yogurt + milk in sauce + spinach. Fiber/veg: tomato, chayote, mushroom, spinach, zucchini. Fusilli is the planned once-a-week dinner; do not use corn/carrot rice sauce for fusilli.</td></tr><tr data-day="Friday"><td data-label="Day">Friday</td><td data-label="Breakfast">Soft macaroni: minced chicken + spinach. Serve with warm milk.</td><td data-label="Lunch note / home lunch">Howard eats lunch at school. Home lunch for adults/helpers only: fried rice with corn, carrot, diced pork and fresh shrimp.</td><td data-label="After-school / calcium snack">After school: cheese toast or banana milk.</td><td data-label="Dinner: method + ingredients">1. Steamed flatfish with ginger and spring onion: use flatfish, steam, remove bones carefully for children.<br>2. Steamed egg with minced pork: soft steamed egg + minced pork, light seasoning for adults.<br>3. Braised hairy gourd with pork slices: hairy gourd + thin pork slices + a little garlic. Braise until soft.</td><td data-label="Soup">Sugar cane, carrot and pork bones soup</td><td data-label="Nutrition focus for kids">Calcium counted for Howard: breakfast milk + after-school cheese/banana milk + steamed egg. Fiber/veg: spinach, carrot, hairy gourd. Protein: flatfish plus egg; keep pork slices light.</td></tr><tr data-day="Saturday"><td data-label="Day">Saturday</td><td data-label="Breakfast">Banana pancakes + avocado slices + warm milk.</td><td data-label="Lunch note / home lunch">White sauce spaghetti: spaghetti + shrimp + scallops + zucchini + mushroom + onion + milk. Keep sauce light and not too dry.</td><td data-label="After-school / calcium snack">Afternoon snack: fruit + yogurt or warm milk if lunch intake is light.</td><td data-label="Dinner: method + ingredients">1. Braised pork brisket with carrot and potato: pork brisket + carrot + potato, stew/braise until soft.<br>2. Stir-fried sweet peppers with beef slices: red/yellow/green sweet peppers + beef slices, light sweet-sour taste.<br>3. Stir-fried small cabbage with garlic: wash well and stir-fry quickly.</td><td data-label="Soup">-</td><td data-label="Nutrition focus for kids">Calcium: warm milk + milk in white sauce. Fiber/veg: banana, avocado, zucchini, mushroom, sweet peppers, small cabbage. Dinner has pork and beef, so serve kids small portions.</td></tr><tr data-day="Sunday"><td data-label="Day">Sunday</td><td data-label="Breakfast">Cheese and avocado sandwiches + steamed apple.</td><td data-label="Lunch note / home lunch">Mixed vegetable congee + steamed dumplings + fried vegetables.</td><td data-label="After-school / calcium snack">Afternoon snack: fruit + warm milk or plain yogurt.</td><td data-label="Dinner: method + ingredients">1. Steamed fresh salmon steak with small tomato and ginger: steam salmon steak and keep it moist.<br>2. Stuffed tofu with minced pork: tofu blocks + minced pork + Chinese mushroom. Stuff tofu, pan-fry lightly if needed, then braise in light sauce.<br>3. Stir-fried bean sprouts with garlic: rinse well and stir-fry quickly.<br>Serve with mixed brown and white rice.</td><td data-label="Soup">Hairy gourd, carrot, barley, beans and pork bones soup</td><td data-label="Nutrition focus for kids">Calcium: cheese + tofu. Fiber/veg: avocado, mixed vegetables, tomato, bean sprouts, hairy gourd, carrot. Protein is fish + tofu/pork, keep portions balanced.</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section id="hazel-en">
+      <section id="hazel-en" data-section="hazel">
         <h2>Hazel Feeding Schedule</h2>
         <p class="note">Cook Hazel&#x27;s food separately where needed: fully cooked, finely chopped, soft texture, no salt, no soy sauce and no strong seasoning. Do not give Hazel egg or pumpkin.</p>
         
     <div class="table-wrap">
       <table class="hazel-table">
         <thead><tr><th>Day</th><th>8:00 AM</th><th>11:30 AM</th><th>1:30-2:00 PM</th><th>3:30 PM</th><th>6:30 PM</th><th>9:30 PM</th></tr></thead>
-        <tbody><tr><td>Monday</td><td>Milk 8-9 oz</td><td>Minced pork + tomato + choi sum thick congee (reuse tomato soup noodle ingredients)</td><td>Apple puree</td><td>Milk 8-9 oz</td><td>Fresh grouper + sweet potato leaves + carrot with soft rice (share adult dinner, no salt/soy sauce)</td><td>Milk</td></tr><tr><td>Tuesday</td><td>Milk 8-9 oz</td><td>Minced chicken + sweet corn + carrot baby noodles (reuse lunch corn/chicken)</td><td>Baby yogurt</td><td>Milk 8-9 oz</td><td>Beef + tomato + ba choi with soft rice (share adult dinner ingredients)</td><td>Milk</td></tr><tr><td>Wednesday</td><td>Milk 8-9 oz</td><td>Beef + tomato + potato thick congee</td><td>Apple puree</td><td>Milk 8-9 oz</td><td>Salmon + chayote + broccoli with soft rice (share adult salmon rice and broccoli)</td><td>Milk</td></tr><tr><td>Thursday</td><td>Milk 8-9 oz</td><td>Pork + corn + carrot thick congee (corn/carrot sauce is for rice/congee, not fusilli)</td><td>Baby yogurt</td><td>Milk 8-9 oz</td><td>Chicken + spinach + sweet potato with soft rice (share adult spinach)</td><td>Milk</td></tr><tr><td>Friday</td><td>Milk 8-9 oz</td><td>Beef + hairy gourd + carrot thick congee (reuse adult hairy gourd)</td><td>Yellow kiwi / fruit puree</td><td>Milk 8-9 oz</td><td>Flatfish + sweet potato + choi sum with soft rice (share adult flatfish, remove bones)</td><td>Milk</td></tr><tr><td>Saturday</td><td>Milk 8-9 oz</td><td>Chicken + zucchini + mushroom baby macaroni (reuse lunch pasta vegetables)</td><td>Baby yogurt</td><td>Milk 8-9 oz</td><td>Pork brisket + carrot + potato with soft rice (share adult braised pork, no heavy sauce)</td><td>Milk</td></tr><tr><td>Sunday</td><td>Milk 8-9 oz</td><td>Beef + tomato + bean sprout thick congee (cook very soft)</td><td>Fruit puree</td><td>Milk 8-9 oz</td><td>Fresh salmon + small tomato + bean sprout with soft rice (share adult salmon and vegetables, no soy sauce)</td><td>Milk</td></tr></tbody>
+        <tbody><tr data-day="Monday"><td data-label="Day">Monday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Minced pork + tomato + choi sum thick congee (reuse tomato soup noodle ingredients)</td><td data-label="1:30-2:00 PM">Apple puree</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Fresh grouper + sweet potato leaves + carrot with soft rice (share adult dinner, no salt/soy sauce)</td><td data-label="9:30 PM">Milk</td></tr><tr data-day="Tuesday"><td data-label="Day">Tuesday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Minced chicken + sweet corn + carrot baby noodles (reuse lunch corn/chicken)</td><td data-label="1:30-2:00 PM">Baby yogurt</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Beef + tomato + ba choi with soft rice (share adult dinner ingredients)</td><td data-label="9:30 PM">Milk</td></tr><tr data-day="Wednesday"><td data-label="Day">Wednesday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Beef + tomato + potato thick congee</td><td data-label="1:30-2:00 PM">Apple puree</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Salmon + chayote + broccoli with soft rice (share adult salmon rice and broccoli)</td><td data-label="9:30 PM">Milk</td></tr><tr data-day="Thursday"><td data-label="Day">Thursday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Pork + corn + carrot thick congee (corn/carrot sauce is for rice/congee, not fusilli)</td><td data-label="1:30-2:00 PM">Baby yogurt</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Chicken + spinach + sweet potato with soft rice (share adult spinach)</td><td data-label="9:30 PM">Milk</td></tr><tr data-day="Friday"><td data-label="Day">Friday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Beef + hairy gourd + carrot thick congee (reuse adult hairy gourd)</td><td data-label="1:30-2:00 PM">Yellow kiwi / fruit puree</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Flatfish + sweet potato + choi sum with soft rice (share adult flatfish, remove bones)</td><td data-label="9:30 PM">Milk</td></tr><tr data-day="Saturday"><td data-label="Day">Saturday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Chicken + zucchini + mushroom baby macaroni (reuse lunch pasta vegetables)</td><td data-label="1:30-2:00 PM">Baby yogurt</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Pork brisket + carrot + potato with soft rice (share adult braised pork, no heavy sauce)</td><td data-label="9:30 PM">Milk</td></tr><tr data-day="Sunday"><td data-label="Day">Sunday</td><td data-label="8:00 AM">Milk 8-9 oz</td><td data-label="11:30 AM">Beef + tomato + bean sprout thick congee (cook very soft)</td><td data-label="1:30-2:00 PM">Fruit puree</td><td data-label="3:30 PM">Milk 8-9 oz</td><td data-label="6:30 PM">Fresh salmon + small tomato + bean sprout with soft rice (share adult salmon and vegetables, no soy sauce)</td><td data-label="9:30 PM">Milk</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section id="chores-en">
+      <section id="chores-en" data-section="chores">
         <h2>Helper Chores By Day</h2>
         
     <div class="table-wrap">
       <table class="">
         <thead><tr><th>Day</th><th>Morning</th><th>Afternoon</th><th>Evening</th></tr></thead>
-        <tbody><tr><td>Monday</td><td>Wake Howard at 6:50/6:55, breakfast and dressed by 7:25, prepare school snacks, one helper watches Hazel and feeds 8am milk, go to market</td><td>Prepare Hazel lunch/snack, make sweet potato buns when free, tidy shoe rack/cabinets</td><td>Cook dinner, clean kitchen, check next-day fresh food for Hazel and Howard</td></tr><tr><td>Tuesday</td><td>Prepare breakfast, Hazel milk and food, wipe playmat/high chair, school uniform/sportswear ready</td><td>Change beddings or vacuum mattresses if scheduled, fold clothes, tidy Howard&#x27;s room</td><td>Cook dinner, wash milk bottles, prepare next day&#x27;s school clothes</td></tr><tr><td>Wednesday</td><td>Prepare breakfast/snacks, baby area cleaning, market if needed</td><td>Remove floor mats, vacuum and clean floor, clean dining table and chairs</td><td>Cook dinner, deep clean Hazel&#x27;s high chair straps/cracks and Hazel&#x27;s bike</td></tr><tr><td>Thursday</td><td>Prepare breakfast and snacks, go to wet market, check fruit and Hazel food items</td><td>Organize and clean fridge, throw away expired food, prepare dinner ingredients</td><td>Cook dinner, deep clean kitchen, list items to buy</td></tr><tr><td>Friday</td><td>Prepare breakfast, baby area cleaning, wash cups and water bottles carefully</td><td>Wipe doors/windows, wash curtains or sofa dolls if scheduled, prepare weekend ingredients</td><td>Cook dinner, wash bottles, prepare pancake ingredients</td></tr><tr><td>Saturday</td><td>Prepare pancake breakfast, optional market trip, check weekend stock</td><td>Rotate air-conditioner filter cleaning, toy sorting, high chair deep clean</td><td>Cook dinner, handle leftovers, soak soup ingredients or pre-cut vegetables</td></tr><tr><td>Sunday</td><td>Easy breakfast, organize fridge and pantry, count ingredients for next week</td><td>Fold clothes, seasonal storage, tidy toys and remove small unsafe toys from Hazel area</td><td>Cook dinner, prepare Monday school clothes and snacks, kitchen cleanup</td></tr></tbody>
+        <tbody><tr data-day="Monday"><td data-label="Day">Monday</td><td data-label="Morning">Wake Howard at 6:50/6:55, breakfast and dressed by 7:25, prepare school snacks, one helper watches Hazel and feeds 8am milk, go to market</td><td data-label="Afternoon">Prepare Hazel lunch/snack, make sweet potato buns when free, tidy shoe rack/cabinets</td><td data-label="Evening">Cook dinner, clean kitchen, check next-day fresh food for Hazel and Howard</td></tr><tr data-day="Tuesday"><td data-label="Day">Tuesday</td><td data-label="Morning">Prepare breakfast, Hazel milk and food, wipe playmat/high chair, school uniform/sportswear ready</td><td data-label="Afternoon">Change beddings or vacuum mattresses if scheduled, fold clothes, tidy Howard&#x27;s room</td><td data-label="Evening">Cook dinner, wash milk bottles, prepare next day&#x27;s school clothes</td></tr><tr data-day="Wednesday"><td data-label="Day">Wednesday</td><td data-label="Morning">Prepare breakfast/snacks, baby area cleaning, market if needed</td><td data-label="Afternoon">Remove floor mats, vacuum and clean floor, clean dining table and chairs</td><td data-label="Evening">Cook dinner, deep clean Hazel&#x27;s high chair straps/cracks and Hazel&#x27;s bike</td></tr><tr data-day="Thursday"><td data-label="Day">Thursday</td><td data-label="Morning">Prepare breakfast and snacks, go to wet market, check fruit and Hazel food items</td><td data-label="Afternoon">Organize and clean fridge, throw away expired food, prepare dinner ingredients</td><td data-label="Evening">Cook dinner, deep clean kitchen, list items to buy</td></tr><tr data-day="Friday"><td data-label="Day">Friday</td><td data-label="Morning">Prepare breakfast, baby area cleaning, wash cups and water bottles carefully</td><td data-label="Afternoon">Wipe doors/windows, wash curtains or sofa dolls if scheduled, prepare weekend ingredients</td><td data-label="Evening">Cook dinner, wash bottles, prepare pancake ingredients</td></tr><tr data-day="Saturday"><td data-label="Day">Saturday</td><td data-label="Morning">Prepare pancake breakfast, optional market trip, check weekend stock</td><td data-label="Afternoon">Rotate air-conditioner filter cleaning, toy sorting, high chair deep clean</td><td data-label="Evening">Cook dinner, handle leftovers, soak soup ingredients or pre-cut vegetables</td></tr><tr data-day="Sunday"><td data-label="Day">Sunday</td><td data-label="Morning">Easy breakfast, organize fridge and pantry, count ingredients for next week</td><td data-label="Afternoon">Fold clothes, seasonal storage, tidy toys and remove small unsafe toys from Hazel area</td><td data-label="Evening">Cook dinner, prepare Monday school clothes and snacks, kitchen cleanup</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section>
+      <section data-section="chores">
         <h2>Weekly / Rotating Housework</h2>
         
     <div class="table-wrap">
       <table class="">
         <thead><tr><th>When</th><th>Task</th></tr></thead>
-        <tbody><tr><td>Every morning</td><td>Wipe Hazel&#x27;s playmat and high chair. Set up the play area. Wash cup and water-bottle edges with a towel; use dishwashing detergent for stains.</td></tr><tr><td>Monday</td><td>Change all beddings when scheduled. Tidy Howard&#x27;s toys and remove small toys that are unsafe for Hazel.</td></tr><tr><td>Once / twice weekly</td><td>Iron Howard&#x27;s school uniform/sportswear and Sir&#x27;s business shirts.</td></tr><tr><td>Weekly</td><td>Vacuum the house and mattresses. Wipe the two kids&#x27; rooms with clean water.</td></tr><tr><td>Weekly</td><td>Clean and organize the fridge. Throw away expired food. Deep clean the kitchen.</td></tr><tr><td>Weekly / as needed</td><td>Clean air-conditioner filters and wipe air-conditioners. Keep air-cond around 25-26C when in use.</td></tr><tr><td>Rotating deep clean</td><td>Deep clean Hazel&#x27;s high chair, including straps and cracks where food gets trapped. Deep clean Hazel&#x27;s bike.</td></tr><tr><td>Rotating deep clean</td><td>Remove floor mats, vacuum and clean the floor. Clean dining table, chairs, shoe rack and shoe cabinets.</td></tr><tr><td>As scheduled</td><td>Wipe doors and windows. Wash curtains or sofa dolls when needed.</td></tr><tr><td>Air quality</td><td>Switch on the air purifier when Howard and Hazel are not in the room, and open windows in the morning when appropriate.</td></tr></tbody>
+        <tbody><tr data-day="Every morning"><td data-label="When">Every morning</td><td data-label="Task">Wipe Hazel&#x27;s playmat and high chair. Set up the play area. Wash cup and water-bottle edges with a towel; use dishwashing detergent for stains.</td></tr><tr data-day="Monday"><td data-label="When">Monday</td><td data-label="Task">Change all beddings when scheduled. Tidy Howard&#x27;s toys and remove small toys that are unsafe for Hazel.</td></tr><tr data-day="Once / twice weekly"><td data-label="When">Once / twice weekly</td><td data-label="Task">Iron Howard&#x27;s school uniform/sportswear and Sir&#x27;s business shirts.</td></tr><tr data-day="Weekly"><td data-label="When">Weekly</td><td data-label="Task">Vacuum the house and mattresses. Wipe the two kids&#x27; rooms with clean water.</td></tr><tr data-day="Weekly"><td data-label="When">Weekly</td><td data-label="Task">Clean and organize the fridge. Throw away expired food. Deep clean the kitchen.</td></tr><tr data-day="Weekly / as needed"><td data-label="When">Weekly / as needed</td><td data-label="Task">Clean air-conditioner filters and wipe air-conditioners. Keep air-cond around 25-26C when in use.</td></tr><tr data-day="Rotating deep clean"><td data-label="When">Rotating deep clean</td><td data-label="Task">Deep clean Hazel&#x27;s high chair, including straps and cracks where food gets trapped. Deep clean Hazel&#x27;s bike.</td></tr><tr data-day="Rotating deep clean"><td data-label="When">Rotating deep clean</td><td data-label="Task">Remove floor mats, vacuum and clean the floor. Clean dining table, chairs, shoe rack and shoe cabinets.</td></tr><tr data-day="As scheduled"><td data-label="When">As scheduled</td><td data-label="Task">Wipe doors and windows. Wash curtains or sofa dolls when needed.</td></tr><tr data-day="Air quality"><td data-label="When">Air quality</td><td data-label="Task">Switch on the air purifier when Howard and Hazel are not in the room, and open windows in the morning when appropriate.</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section id="reminders-en">
+      <section id="reminders-en" data-section="rules">
         <h2>Key Reminders</h2>
         <ul class="rule-list"><li><strong>Family groups</strong><span>Adults group: Sir, Mom, Howard</span></li><li><strong>Family groups</strong><span>Baby group: Hazel (around 1 year old)</span></li><li><strong>Food pattern</strong><span>Main weekday breakfasts: sandwiches, macaroni, steamed sweet potato with milk/yogurt</span></li><li><strong>Food pattern</strong><span>Keep banana pancakes on Saturday / weekend</span></li><li><strong>Food pattern</strong><span>Lunch is usually simple: soup noodles, congee, dumplings, pasta, fried rice</span></li><li><strong>Food pattern</strong><span>Dinner usually includes main dish + fish/egg/tofu + vegetables + rice/noodles/pasta</span></li><li><strong>Hazel rules</strong><span>Stable later schedule: 8:00 / 11:30 / 2:00 / 4:00 / 7:00 / 10:00</span></li><li><strong>Hazel rules</strong><span>Milk is usually 8.5 oz, sometimes 9 oz</span></li><li><strong>Hazel rules</strong><span>Cut meat and vegetables very small; congee should not be too watery</span></li><li><strong>Hazel rules</strong><span>Food temperature should stay around or below 40C; milk is usually around 41-42C</span></li><li><strong>Hazel rules</strong><span>Common 2pm snack: fruit puree / baby yogurt / fruit</span></li><li><strong>Hazel allergy / sensitivity</strong><span>Hazel should not eat egg or pumpkin.</span></li><li><strong>Chore pattern</strong><span>Market days are usually Monday, Thursday and Saturday unless ingredients were already bought</span></li><li><strong>Chore pattern</strong><span>Basic baby-area cleaning every morning: playmat, high chair, play area</span></li><li><strong>Safety reminder</strong><span>Do not leave Hazel alone in the high chair; always check freshness and expiry dates</span></li><li><strong>Kitchen safety</strong><span>Do not bring Hazel or Howard into the kitchen unless there is really no other choice.</span></li><li><strong>Food safety</strong><span>Hazel&#x27;s food should be soft, fully cooked, finely chopped, with no strong seasoning and no added salt or soy sauce.</span></li><li><strong>Toy safety</strong><span>Remove small toys from Hazel&#x27;s play area and store them away.</span></li><li><strong>Morning routine</strong><span>Howard should wake at 6:50/6:55 and finish breakfast/get dressed by 7:25 when there is school.</span></li></ul>
       </section>
 
-      <section>
+      <section data-section="rules">
         <h2>Warm Reminders For Helpers</h2>
         <ul class="rule-list"><li><strong>Kitchen safety</strong><span>Please do not bring Hazel or Howard into the kitchen while cooking or handling hot food. Only use the high chair in the kitchen if there is really no other choice.</span></li><li><strong>Hot dishes</strong><span>Please use two thick towels to take out hot dishes. Hold both sides carefully and do not use dish tongs to clamp hot plates or bowls.</span></li><li><strong>Baby safety</strong><span>Please handle Hazel gently when helping her sleep. Do not shake her too much.</span></li><li><strong>High chair</strong><span>Hazel can climb now, so please do not leave her alone in the high chair. Use the playpen or baby cot if needed.</span></li><li><strong>Milk temperature</strong><span>Please check milk temperature carefully before feeding Hazel. It is usually around 41-42C, warm but not too hot.</span></li><li><strong>Food temperature</strong><span>Hazel&#x27;s congee and soft food should also be warm only, around or below 40C.</span></li><li><strong>Food texture</strong><span>Please chop Hazel&#x27;s meat and vegetables very small, and keep her congee less watery so she can learn to chew.</span></li><li><strong>No seasoning for Hazel</strong><span>Please cook Hazel&#x27;s food soft, fully cooked, with no strong seasoning, no added salt and no soy sauce.</span></li><li><strong>Hazel allergy / sensitivity</strong><span>Please do not give Hazel egg or pumpkin, including egg yolk, steamed egg, pumpkin puree or pumpkin rice.</span></li><li><strong>Fish and shrimp</strong><span>For Hazel, remove all fish bones carefully. Cut shrimp into very small cubes.</span></li><li><strong>Fresh ingredients</strong><span>Please always check freshness and expiry dates before cooking, especially for Hazel and Howard.</span></li><li><strong>Market shopping</strong><span>When buying ingredients, please also check whether Hazel&#x27;s food, fruit, milk items or baby ingredients need restocking.</span></li><li><strong>Morning baby area</strong><span>Please wipe Hazel&#x27;s playmat and high chair in the morning and set up the play area nicely.</span></li><li><strong>Fruit and water</strong><span>If Hazel&#x27;s poop is hard, please give more fruit and water during the day.</span></li><li><strong>Sleep routine</strong><span>If Hazel is sleeping during milk time and you are not sure what to do, please ask first. Usually her milk should still be given on time.</span></li><li><strong>Clothing</strong><span>If Hazel is wearing too many layers before sleep, please remove one layer so she does not get too hot.</span></li><li><strong>Bath and clothes</strong><span>After Hazel goes out or plays downstairs, please help change her into clean clothes and follow the bath routine.</span></li><li><strong>Toys</strong><span>Please keep small toys away from Hazel&#x27;s play area because she may put them into her mouth.</span></li><li><strong>Howard routine</strong><span>Please help Howard with school snacks, shower after school, and homework or rest time when needed.</span></li><li><strong>Howard school clothes</strong><span>Please prepare Howard&#x27;s clothes the night before: school uniform on Monday, Tuesday and Friday; sportswear on Wednesday and Thursday.</span></li><li><strong>Cups and bottles</strong><span>Please wash cup and water-bottle edges carefully every morning. Use dishwashing detergent for tea stains and rinse well.</span></li><li><strong>Kitchen routine</strong><span>Please keep the kitchen tidy after cooking, store leftovers properly, and check the next day&#x27;s ingredients at night.</span></li><li><strong>Housework planning</strong><span>Please manage market time well and try to finish shopping efficiently, so home duties can stay on schedule.</span></li></ul>
       </section>
@@ -336,11 +497,11 @@
   <div class="lang-view" data-lang="zh" hidden>
     <header>
       <h1>Home Team 每週餐單、營養與家務計劃</h1>
-      <p class="subtitle">中文版。更新日期：15 May 2026。星期一至五 Howard/Power 在學校食午餐，所以屋企午餐不計入他的鈣質或纖維。</p>
+      <p class="subtitle">中文版。更新日期：15 May 2026。星期一至五 Howard 在學校食午餐，所以屋企午餐不計入他的鈣質或纖維。</p>
       <nav>
         <a href="#nutrition-zh">營養</a>
         <a href="#safety-zh">安全</a>
-        <a href="#menu-zh">大人 + Howard/Power</a>
+        <a href="#menu-zh">大人 + Howard</a>
         <a href="#hazel-zh">Hazel</a>
         <a href="#chores-zh">家務</a>
         <a href="#reminders-zh">提醒</a>
@@ -348,76 +509,85 @@
     </header>
 
     <main>
-      <div class="summary"><div class="summary-item"><strong>Fusilli 晚餐</strong>每星期一次，安排星期四晚餐，用鮮茄淡忌廉汁。</div><div class="summary-item"><strong>學校午餐</strong>星期一至五 Howard/Power 午餐在學校食。</div><div class="summary-item"><strong>鈣質安排</strong>上學日靠早餐、放學 snack 同晚餐補足。</div><div class="summary-item"><strong>Hazel 敏感</strong>Hazel 唔食蛋同南瓜。</div></div>
+      <div class="summary"><div class="summary-item"><strong>Fusilli 晚餐</strong>每星期一次，安排星期四晚餐，用鮮茄淡忌廉汁。</div><div class="summary-item"><strong>學校午餐</strong>星期一至五 Howard 午餐在學校食。</div><div class="summary-item"><strong>鈣質安排</strong>上學日靠早餐、放學 snack 同晚餐補足。</div><div class="summary-item"><strong>Hazel 敏感</strong>Hazel 唔食蛋同南瓜。</div></div>
 
-      <section id="nutrition-zh">
+      <div class="reader-tools" aria-label="快速閱讀篩選">
+        <span>快速閱讀</span>
+        <button type="button" class="active" data-focus="all">全部</button>
+        <button type="button" data-focus="menu">餐單</button>
+        <button type="button" data-focus="hazel">Hazel</button>
+        <button type="button" data-focus="chores">家務</button>
+        <button type="button" data-focus="rules">提醒</button>
+      </div>
+
+      <section id="nutrition-zh" data-section="rules">
         <h2>營養規則</h2>
-        <ul class="rule-list"><li><strong>Power / Howard 鈣質</strong><span>每日盡量有鈣質來源：奶、原味乳酪、芝士、豆腐、傳統豆腐、加鈣豆奶或深綠菜。</span></li><li><strong>Power / Howard 每日平衡</strong><span>早午晚合計要有穀物、蛋白質、蔬菜/水果同鈣質來源。如果晚餐肉太多，小朋友肉量要細，菜要加多。</span></li><li><strong>Hazel 餐單結構</strong><span>Hazel lunch 同 dinner 每次要有肉/魚同兩款蔬菜，拌入粥 / noodles / 軟飯，全部切細。</span></li><li><strong>Hazel 敏感 / 避免食物</strong><span>Hazel 唔食蛋同南瓜；包括蛋黃、蒸蛋、含蛋 pancake、南瓜蓉同南瓜飯。</span></li><li><strong>Hazel 蛋白質輪替</strong><span>Hazel 同日 lunch 同 dinner 唔可以用同一款蛋白質；一星期內輪替魚、牛、豬、雞。</span></li><li><strong>共用大人材料</strong><span>可以用大人同日安全材料俾 Hazel，例如新鮮魚、蕃茄、合掌瓜、菠菜、西蘭花，但要另煮，無鹽、無豉油、無重味調味。</span></li><li><strong>纖維檢查</strong><span>晚餐一定要有清楚一碟蔬菜；一星期蔬菜要分散，唔好只靠菜心或西蘭花。</span></li><li><strong>蛋白質檢查</strong><span>如果晚餐有兩道蛋白質菜，小朋友份量要細，其中一道要輕身，並增加蔬菜。</span></li></ul>
+        <ul class="rule-list"><li><strong>Howard 鈣質</strong><span>每日盡量有鈣質來源：奶、原味乳酪、芝士、豆腐、傳統豆腐、加鈣豆奶或深綠菜。</span></li><li><strong>Howard 每日平衡</strong><span>早午晚合計要有穀物、蛋白質、蔬菜/水果同鈣質來源。如果晚餐肉太多，小朋友肉量要細，菜要加多。</span></li><li><strong>Hazel 餐單結構</strong><span>Hazel lunch 同 dinner 每次要有肉/魚同兩款蔬菜，拌入粥 / noodles / 軟飯，全部切細。</span></li><li><strong>Hazel 敏感 / 避免食物</strong><span>Hazel 唔食蛋同南瓜；包括蛋黃、蒸蛋、含蛋 pancake、南瓜蓉同南瓜飯。</span></li><li><strong>Hazel 蛋白質輪替</strong><span>Hazel 同日 lunch 同 dinner 唔可以用同一款蛋白質；一星期內輪替魚、牛、豬、雞。</span></li><li><strong>共用大人材料</strong><span>可以用大人同日安全材料俾 Hazel，例如新鮮魚、蕃茄、合掌瓜、菠菜、西蘭花，但要另煮，無鹽、無豉油、無重味調味。</span></li><li><strong>纖維檢查</strong><span>晚餐一定要有清楚一碟蔬菜；一星期蔬菜要分散，唔好只靠菜心或西蘭花。</span></li><li><strong>蛋白質檢查</strong><span>如果晚餐有兩道蛋白質菜，小朋友份量要細，其中一道要輕身，並增加蔬菜。</span></li></ul>
       </section>
 
-      <section id="safety-zh">
+      <section id="safety-zh" data-section="rules">
         <h2>重要安全規則</h2>
         <ul class="rule-list critical"><li><strong>廚房安全</strong><span>不要帶 Hazel 或 Howard 入廚房。除非完全無其他選擇、無人可以看住 Hazel，才可短時間讓 Hazel 坐 high chair。</span></li><li><strong>熱碟熱碗</strong><span>攞熱碟熱碗時，用兩條厚毛巾托住兩邊，小心取出；不要用夾夾住熱碟。</span></li><li><strong>High chair 安全</strong><span>Hazel 會攀爬，不可以單獨留她在 high chair。如要離開，請放入 playpen 或 baby cot。</span></li><li><strong>細玩具</strong><span>Howard 細玩具不要放在 Hazel playmat，細小或危險玩具要放入櫃桶或袋。</span></li><li><strong>食物安全</strong><span>煮食前一定要檢查新鮮度同 expiry date，特別是肉、魚同 Hazel 食物。</span></li><li><strong>Hazel 食物敏感</strong><span>Hazel 唔食蛋同南瓜。請檢查 pancake、蒸蛋、蛋黃、南瓜蓉、南瓜飯等材料，唔好俾 Hazel。</span></li><li><strong>發燒 / 打針</strong><span>Hazel 發燒或打針後要量體溫；如超過 38C，要即刻通知媽媽。</span></li></ul>
       </section>
 
-      <section id="menu-zh">
-        <h2>大人 + Howard / Power 七日餐單</h2>
-        <p class="note">上學日屋企午餐主要俾大人/姐姐；Howard/Power 的鈣質同纖維要由早餐、放學 snack 同晚餐補足。</p>
+      <section id="menu-zh" data-section="menu">
+        <h2>大人 + Howard 七日餐單</h2>
+        <p class="note">上學日屋企午餐主要俾大人/姐姐；Howard 的鈣質同纖維要由早餐、放學 snack 同晚餐補足。</p>
         
     <div class="table-wrap">
       <table class="menu-table">
         <thead><tr><th>星期</th><th>早餐：煮法 + 材料</th><th>午餐 / 屋企午餐</th><th>晚餐：菜式 + 煮法 + 材料</th><th>湯水</th><th>小朋友營養重點</th></tr></thead>
-        <tbody><tr><td>星期一</td><td>三文治：麵包 + 牛油果 + 芝士 + 火腿，配暖奶。</td><td>蕃茄湯通粉/麵：蕃茄湯底 + 豬肉片 + 菜心 + 餃子。先煮湯底，再落粉麵同配料。</td><td>1. 薑蔥蒸新鮮石斑：蒸熟後大人份可加少量豉油同熟油。<br>2. 蒜蓉炒番薯葉：洗乾淨後快炒。<br>3. 番薯蘑菇燴飯：番薯 + 免治豬肉 + 蘑菇 + 青豆 + 紅蘿蔔，保持濕潤，唔好太乾。</td><td>粉葛紅蘿蔔粟米瘦肉湯</td><td>鈣質：暖奶 + 芝士。纖維/蔬菜：蕃茄、菜心、番薯葉、番薯。蛋白質適中，晚餐有魚同少量免治豬肉。</td></tr><tr><td>星期二</td><td>通粉：通粉 + 豬肉片 + 蕃茄 + 少量菜心，配暖奶或原味乳酪。</td><td>Howard/Power 學校午餐；屋企午餐俾大人/姐姐：鮮茄雞肉通粉或意粉 + 青瓜絲。</td><td>1. 蕃茄炆牛肉片：新鮮蕃茄 + 牛肉片 + 洋蔥 + 薯仔/紅蘿蔔，煮多啲鮮茄汁，唔好太鹹。<br>2. 白菜炆豆腐：豆腐 + 白菜 + 少量免治豬肉或清汁，慢慢炆，避免整爛豆腐。<br>3. 西芹炒鮮魷：西芹 + 鮮魷 + 紅蘿蔔絲，快炒。<br>配黃白飯。</td><td>-</td><td>鈣質：奶/乳酪 + 豆腐 + 白菜。纖維/蔬菜：蕃茄、白菜、西芹、紅蘿蔔。蛋白質有牛肉、少量豆腐、魷魚，小朋友份量要細。</td></tr><tr><td>星期三</td><td>蒸番薯 + 蒸蘋果 + 暖奶。</td><td>白粥 + 蒸鮮餃 + 蒜蓉炒生菜。</td><td>1. Creamy tomato salmon rice：三文魚 + 新鮮蕃茄 + 洋蔥 + 奶 + 蘑菇 + 合掌瓜 + 生菜，煮汁後淋飯。<br>2. 免治豬肉蕃茄汁蒸蛋：先蒸滑蛋，再加免治豬肉蕃茄汁。<br>3. 蒜蓉炒西蘭花：逐朵洗、浸水、先汆水，再快炒。</td><td>蘋果雪梨橙湯</td><td>鈣質：暖奶 + 西蘭花 + 蒸蛋。纖維/蔬菜：番薯、生菜、蕃茄、合掌瓜、西蘭花。呢日係唯一西蘭花日。</td></tr><tr><td>星期四</td><td>番薯包 + 蒸蘋果 + 乳酪。</td><td>鮮茄雞髀意粉：意粉 + 鮮蕃茄汁 + 煎雞髀 + 青瓜絲。</td><td>1. 鮮茄淡忌廉 Fusilli：fusilli + 三文魚粒 + 蝦仁 + 蘑菇 + 合掌瓜 + 小蕃茄 + 牛奶/少量淡忌廉，汁要濕潤，唔好太乾。<br>2. 蒜蓉炒菠菜：徹底洗乾淨，先汆水，再快炒。<br>3. 翠玉瓜蘑菇炆免治豬肉：翠玉瓜 + 新鮮蘑菇 + 少量免治豬肉，做配菜，唔係 fusilli sauce。</td><td>-</td><td>鈣質：乳酪 + fusilli sauce 入面嘅奶 + 菠菜。纖維/蔬菜：蕃茄、合掌瓜、蘑菇、菠菜、翠玉瓜。Fusilli 係一星期一次晚餐；粟米紅蘿蔔汁只適合撈飯，唔好配 fusilli。</td></tr><tr><td>星期五</td><td>軟通粉：免治雞肉 + 菠菜，配暖奶。</td><td>炒飯：飯 + 粟米 + 紅蘿蔔 + 豬肉粒 + 鮮蝦，可加甜椒絲。</td><td>1. 薑蔥蒸撻沙/比目魚：用 flatfish，蒸熟，小朋友要小心拆骨。<br>2. 免治豬肉蒸蛋：滑蒸蛋 + 免治豬肉，大人份淡調味。<br>3. 豬肉片炆節瓜：節瓜 + 薄豬肉片 + 少量蒜，炆至軟身。</td><td>甘蔗紅蘿蔔豬骨湯</td><td>鈣質：暖奶 + 蒸蛋。纖維/蔬菜：菠菜、紅蘿蔔、節瓜。蛋白質有魚同蛋，豬肉片要少量。</td></tr><tr><td>星期六</td><td>香蕉 pancakes + 牛油果片 + 暖奶。</td><td>白汁意粉：意粉 + 蝦 + 帶子 + 翠玉瓜 + 蘑菇 + 洋蔥 + 奶，汁保持清淡唔好太乾。</td><td>1. 薯仔紅蘿蔔炆豬腩/豬肋條：豬肉 + 紅蘿蔔 + 薯仔，炆至軟身。<br>2. 三色甜椒炒牛肉片：紅/黃/綠甜椒 + 牛肉片，少少酸甜味。<br>3. 蒜蓉炒小棠菜：洗乾淨後快炒。</td><td>-</td><td>鈣質：暖奶 + 白汁入面嘅奶。纖維/蔬菜：香蕉、牛油果、翠玉瓜、蘑菇、甜椒、小棠菜。晚餐有豬同牛，小朋友份量要細。</td></tr><tr><td>星期日</td><td>芝士牛油果三文治 + 蒸蘋果。</td><td>雜菜粥 + 蒸餃 + 炒菜。</td><td>1. 蕃茄薑蒸新鮮三文魚扒：蒸三文魚扒，保持濕潤。<br>2. 免治豬肉釀豆腐：豆腐件 + 免治豬肉 + 冬菇，可先略煎再用清汁炆。<br>3. 蒜蓉炒芽菜：徹底沖洗後快炒。<br>配黃白飯。</td><td>節瓜紅蘿蔔薏米豆豬骨湯</td><td>鈣質：芝士 + 豆腐。纖維/蔬菜：牛油果、雜菜、蕃茄、芽菜、節瓜、紅蘿蔔。蛋白質有魚、豆腐/豬肉，小朋友份量要平衡。</td></tr></tbody>
+        <tbody><tr data-day="星期一"><td data-label="星期">星期一</td><td data-label="早餐：煮法 + 材料">三文治：麵包 + 牛油果 + 芝士 + 火腿，配暖奶。</td><td data-label="午餐 / 屋企午餐">蕃茄湯通粉/麵：蕃茄湯底 + 豬肉片 + 菜心 + 餃子。先煮湯底，再落粉麵同配料。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. 薑蔥蒸新鮮石斑：蒸熟後大人份可加少量豉油同熟油。<br>2. 蒜蓉炒番薯葉：洗乾淨後快炒。<br>3. 番薯蘑菇燴飯：番薯 + 免治豬肉 + 蘑菇 + 青豆 + 紅蘿蔔，保持濕潤，唔好太乾。</td><td data-label="湯水">粉葛紅蘿蔔粟米瘦肉湯</td><td data-label="小朋友營養重點">鈣質：暖奶 + 芝士。纖維/蔬菜：蕃茄、菜心、番薯葉、番薯。蛋白質適中，晚餐有魚同少量免治豬肉。</td></tr><tr data-day="星期二"><td data-label="星期">星期二</td><td data-label="早餐：煮法 + 材料">通粉：通粉 + 豬肉片 + 蕃茄 + 少量菜心，配暖奶或原味乳酪。</td><td data-label="午餐 / 屋企午餐">Howard 學校午餐；屋企午餐俾大人/姐姐：鮮茄雞肉通粉或意粉 + 青瓜絲。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. 蕃茄炆牛肉片：新鮮蕃茄 + 牛肉片 + 洋蔥 + 薯仔/紅蘿蔔，煮多啲鮮茄汁，唔好太鹹。<br>2. 白菜炆豆腐：豆腐 + 白菜 + 少量免治豬肉或清汁，慢慢炆，避免整爛豆腐。<br>3. 西芹炒鮮魷：西芹 + 鮮魷 + 紅蘿蔔絲，快炒。<br>配黃白飯。</td><td data-label="湯水">-</td><td data-label="小朋友營養重點">鈣質：奶/乳酪 + 豆腐 + 白菜。纖維/蔬菜：蕃茄、白菜、西芹、紅蘿蔔。蛋白質有牛肉、少量豆腐、魷魚，小朋友份量要細。</td></tr><tr data-day="星期三"><td data-label="星期">星期三</td><td data-label="早餐：煮法 + 材料">蒸番薯 + 蒸蘋果 + 暖奶。</td><td data-label="午餐 / 屋企午餐">白粥 + 蒸鮮餃 + 蒜蓉炒生菜。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. Creamy tomato salmon rice：三文魚 + 新鮮蕃茄 + 洋蔥 + 奶 + 蘑菇 + 合掌瓜 + 生菜，煮汁後淋飯。<br>2. 免治豬肉蕃茄汁蒸蛋：先蒸滑蛋，再加免治豬肉蕃茄汁。<br>3. 蒜蓉炒西蘭花：逐朵洗、浸水、先汆水，再快炒。</td><td data-label="湯水">蘋果雪梨橙湯</td><td data-label="小朋友營養重點">鈣質：暖奶 + 西蘭花 + 蒸蛋。纖維/蔬菜：番薯、生菜、蕃茄、合掌瓜、西蘭花。呢日係唯一西蘭花日。</td></tr><tr data-day="星期四"><td data-label="星期">星期四</td><td data-label="早餐：煮法 + 材料">番薯包 + 蒸蘋果 + 乳酪。</td><td data-label="午餐 / 屋企午餐">鮮茄雞髀意粉：意粉 + 鮮蕃茄汁 + 煎雞髀 + 青瓜絲。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. 鮮茄淡忌廉 Fusilli：fusilli + 三文魚粒 + 蝦仁 + 蘑菇 + 合掌瓜 + 小蕃茄 + 牛奶/少量淡忌廉，汁要濕潤，唔好太乾。<br>2. 蒜蓉炒菠菜：徹底洗乾淨，先汆水，再快炒。<br>3. 翠玉瓜蘑菇炆免治豬肉：翠玉瓜 + 新鮮蘑菇 + 少量免治豬肉，做配菜，唔係 fusilli sauce。</td><td data-label="湯水">-</td><td data-label="小朋友營養重點">鈣質：乳酪 + fusilli sauce 入面嘅奶 + 菠菜。纖維/蔬菜：蕃茄、合掌瓜、蘑菇、菠菜、翠玉瓜。Fusilli 係一星期一次晚餐；粟米紅蘿蔔汁只適合撈飯，唔好配 fusilli。</td></tr><tr data-day="星期五"><td data-label="星期">星期五</td><td data-label="早餐：煮法 + 材料">軟通粉：免治雞肉 + 菠菜，配暖奶。</td><td data-label="午餐 / 屋企午餐">炒飯：飯 + 粟米 + 紅蘿蔔 + 豬肉粒 + 鮮蝦，可加甜椒絲。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. 薑蔥蒸撻沙/比目魚：用 flatfish，蒸熟，小朋友要小心拆骨。<br>2. 免治豬肉蒸蛋：滑蒸蛋 + 免治豬肉，大人份淡調味。<br>3. 豬肉片炆節瓜：節瓜 + 薄豬肉片 + 少量蒜，炆至軟身。</td><td data-label="湯水">甘蔗紅蘿蔔豬骨湯</td><td data-label="小朋友營養重點">鈣質：暖奶 + 蒸蛋。纖維/蔬菜：菠菜、紅蘿蔔、節瓜。蛋白質有魚同蛋，豬肉片要少量。</td></tr><tr data-day="星期六"><td data-label="星期">星期六</td><td data-label="早餐：煮法 + 材料">香蕉 pancakes + 牛油果片 + 暖奶。</td><td data-label="午餐 / 屋企午餐">白汁意粉：意粉 + 蝦 + 帶子 + 翠玉瓜 + 蘑菇 + 洋蔥 + 奶，汁保持清淡唔好太乾。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. 薯仔紅蘿蔔炆豬腩/豬肋條：豬肉 + 紅蘿蔔 + 薯仔，炆至軟身。<br>2. 三色甜椒炒牛肉片：紅/黃/綠甜椒 + 牛肉片，少少酸甜味。<br>3. 蒜蓉炒小棠菜：洗乾淨後快炒。</td><td data-label="湯水">-</td><td data-label="小朋友營養重點">鈣質：暖奶 + 白汁入面嘅奶。纖維/蔬菜：香蕉、牛油果、翠玉瓜、蘑菇、甜椒、小棠菜。晚餐有豬同牛，小朋友份量要細。</td></tr><tr data-day="星期日"><td data-label="星期">星期日</td><td data-label="早餐：煮法 + 材料">芝士牛油果三文治 + 蒸蘋果。</td><td data-label="午餐 / 屋企午餐">雜菜粥 + 蒸餃 + 炒菜。</td><td data-label="晚餐：菜式 + 煮法 + 材料">1. 蕃茄薑蒸新鮮三文魚扒：蒸三文魚扒，保持濕潤。<br>2. 免治豬肉釀豆腐：豆腐件 + 免治豬肉 + 冬菇，可先略煎再用清汁炆。<br>3. 蒜蓉炒芽菜：徹底沖洗後快炒。<br>配黃白飯。</td><td data-label="湯水">節瓜紅蘿蔔薏米豆豬骨湯</td><td data-label="小朋友營養重點">鈣質：芝士 + 豆腐。纖維/蔬菜：牛油果、雜菜、蕃茄、芽菜、節瓜、紅蘿蔔。蛋白質有魚、豆腐/豬肉，小朋友份量要平衡。</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section id="hazel-zh">
+      <section id="hazel-zh" data-section="hazel">
         <h2>Hazel 七日餐單</h2>
         <p class="note">Hazel 食物要另煮：fully cooked、切細、軟身、無鹽、無豉油、無重味。Hazel 唔食蛋同南瓜。</p>
         
     <div class="table-wrap">
       <table class="hazel-table">
         <thead><tr><th>星期</th><th>8:00 AM</th><th>11:30 AM</th><th>1:30-2:00 PM</th><th>3:30 PM</th><th>6:30 PM</th><th>9:30 PM</th></tr></thead>
-        <tbody><tr><td>星期一</td><td>奶 8-9 oz</td><td>免治豬肉 + 蕃茄 + 菜心厚粥（用大人蕃茄湯麵材料）</td><td>蘋果蓉</td><td>奶 8-9 oz</td><td>新鮮石斑 + 番薯葉 + 紅蘿蔔軟飯（同大人晚餐共用材料，無鹽無豉油）</td><td>奶</td></tr><tr><td>星期二</td><td>奶 8-9 oz</td><td>免治雞肉 + 粟米 + 紅蘿蔔 baby noodles（用午餐粟米/雞肉材料）</td><td>baby yogurt</td><td>奶 8-9 oz</td><td>牛肉 + 蕃茄 + 白菜軟飯（用大人晚餐材料）</td><td>奶</td></tr><tr><td>星期三</td><td>奶 8-9 oz</td><td>牛肉 + 蕃茄 + 薯仔厚粥</td><td>蘋果蓉</td><td>奶 8-9 oz</td><td>三文魚 + 合掌瓜 + 西蘭花軟飯（用大人 salmon rice 同西蘭花材料）</td><td>奶</td></tr><tr><td>星期四</td><td>奶 8-9 oz</td><td>豬肉 + 粟米 + 紅蘿蔔厚粥（粟米紅蘿蔔汁只適合粥/飯，唔好配 fusilli）</td><td>baby yogurt</td><td>奶 8-9 oz</td><td>雞肉 + 菠菜 + 番薯軟飯（用大人菠菜材料）</td><td>奶</td></tr><tr><td>星期五</td><td>奶 8-9 oz</td><td>牛肉 + 節瓜 + 紅蘿蔔厚粥（用大人節瓜材料）</td><td>黃奇異果 / fruit puree</td><td>奶 8-9 oz</td><td>flatfish + 番薯 + 菜心軟飯（用大人蒸魚，拆骨）</td><td>奶</td></tr><tr><td>星期六</td><td>奶 8-9 oz</td><td>雞肉 + 翠玉瓜 + 蘑菇 baby macaroni（用午餐意粉菜料）</td><td>baby yogurt</td><td>奶 8-9 oz</td><td>豬肉 + 紅蘿蔔 + 薯仔軟飯（用大人炆豬肉，唔要重味汁）</td><td>奶</td></tr><tr><td>星期日</td><td>奶 8-9 oz</td><td>牛肉 + 蕃茄 + 芽菜厚粥（煮到好軟）</td><td>fruit puree</td><td>奶 8-9 oz</td><td>新鮮三文魚 + 小蕃茄 + 芽菜軟飯（用大人三文魚同蔬菜，無豉油）</td><td>奶</td></tr></tbody>
+        <tbody><tr data-day="星期一"><td data-label="星期">星期一</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">免治豬肉 + 蕃茄 + 菜心厚粥（用大人蕃茄湯麵材料）</td><td data-label="1:30-2:00 PM">蘋果蓉</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">新鮮石斑 + 番薯葉 + 紅蘿蔔軟飯（同大人晚餐共用材料，無鹽無豉油）</td><td data-label="9:30 PM">奶</td></tr><tr data-day="星期二"><td data-label="星期">星期二</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">免治雞肉 + 粟米 + 紅蘿蔔 baby noodles（用午餐粟米/雞肉材料）</td><td data-label="1:30-2:00 PM">baby yogurt</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">牛肉 + 蕃茄 + 白菜軟飯（用大人晚餐材料）</td><td data-label="9:30 PM">奶</td></tr><tr data-day="星期三"><td data-label="星期">星期三</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">牛肉 + 蕃茄 + 薯仔厚粥</td><td data-label="1:30-2:00 PM">蘋果蓉</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">三文魚 + 合掌瓜 + 西蘭花軟飯（用大人 salmon rice 同西蘭花材料）</td><td data-label="9:30 PM">奶</td></tr><tr data-day="星期四"><td data-label="星期">星期四</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">豬肉 + 粟米 + 紅蘿蔔厚粥（粟米紅蘿蔔汁只適合粥/飯，唔好配 fusilli）</td><td data-label="1:30-2:00 PM">baby yogurt</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">雞肉 + 菠菜 + 番薯軟飯（用大人菠菜材料）</td><td data-label="9:30 PM">奶</td></tr><tr data-day="星期五"><td data-label="星期">星期五</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">牛肉 + 節瓜 + 紅蘿蔔厚粥（用大人節瓜材料）</td><td data-label="1:30-2:00 PM">黃奇異果 / fruit puree</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">flatfish + 番薯 + 菜心軟飯（用大人蒸魚，拆骨）</td><td data-label="9:30 PM">奶</td></tr><tr data-day="星期六"><td data-label="星期">星期六</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">雞肉 + 翠玉瓜 + 蘑菇 baby macaroni（用午餐意粉菜料）</td><td data-label="1:30-2:00 PM">baby yogurt</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">豬肉 + 紅蘿蔔 + 薯仔軟飯（用大人炆豬肉，唔要重味汁）</td><td data-label="9:30 PM">奶</td></tr><tr data-day="星期日"><td data-label="星期">星期日</td><td data-label="8:00 AM">奶 8-9 oz</td><td data-label="11:30 AM">牛肉 + 蕃茄 + 芽菜厚粥（煮到好軟）</td><td data-label="1:30-2:00 PM">fruit puree</td><td data-label="3:30 PM">奶 8-9 oz</td><td data-label="6:30 PM">新鮮三文魚 + 小蕃茄 + 芽菜軟飯（用大人三文魚同蔬菜，無豉油）</td><td data-label="9:30 PM">奶</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section id="chores-zh">
+      <section id="chores-zh" data-section="chores">
         <h2>姐姐每日家務</h2>
         
     <div class="table-wrap">
       <table class="">
         <thead><tr><th>星期</th><th>早上</th><th>下午</th><th>晚上</th></tr></thead>
-        <tbody><tr><td>星期一</td><td>6:50/6:55 叫 Howard 起身，7:25 前食完早餐同換衫；準備 school snacks；一位姐姐照顧 Hazel 8am 奶；去街市</td><td>準備 Hazel 午餐/小食，有空做番薯包，整理鞋櫃</td><td>煮晚餐，清潔廚房，檢查翌日 Hazel / Howard 新鮮食材</td></tr><tr><td>星期二</td><td>準備早餐、Hazel 奶同食物、抹 playmat/high chair、準備校服/運動衫</td><td>按安排換床單或吸 mattress，摺衫，整理 Howard 房</td><td>煮晚餐，洗奶樽，準備翌日返學衫</td></tr><tr><td>星期三</td><td>準備早餐/snacks、BB 區清潔，如需要去街市</td><td>移開 floor mats，吸塵拖地，清潔飯枱同椅</td><td>煮晚餐，深層清潔 Hazel high chair straps/罅隙同 Hazel 單車</td></tr><tr><td>星期四</td><td>準備早餐/snacks，去濕街市，檢查水果同 Hazel 食材</td><td>整理同清潔雪櫃，掉過期食物，預備晚餐材料</td><td>煮晚餐，deep clean kitchen，列出要買物品</td></tr><tr><td>星期五</td><td>準備早餐，BB 區清潔，仔細洗杯同水樽邊</td><td>抹門窗，如有安排就洗窗簾或 sofa dolls，準備週末材料</td><td>煮晚餐，洗奶樽，準備 pancake 材料</td></tr><tr><td>星期六</td><td>準備 pancake 早餐，可去街市，檢查週末食材</td><td>輪流清潔冷氣隔塵網、整理玩具、deep clean high chair</td><td>煮晚餐，處理剩食，浸湯料或預切翌日蔬菜</td></tr><tr><td>星期日</td><td>簡單早餐，整理雪櫃同 pantry，點算下星期食材</td><td>摺衫、季節收納、整理玩具，移走 Hazel 危險細玩具</td><td>煮晚餐，準備星期一校服/snacks，廚房執尾</td></tr></tbody>
+        <tbody><tr data-day="星期一"><td data-label="星期">星期一</td><td data-label="早上">6:50/6:55 叫 Howard 起身，7:25 前食完早餐同換衫；準備 school snacks；一位姐姐照顧 Hazel 8am 奶；去街市</td><td data-label="下午">準備 Hazel 午餐/小食，有空做番薯包，整理鞋櫃</td><td data-label="晚上">煮晚餐，清潔廚房，檢查翌日 Hazel / Howard 新鮮食材</td></tr><tr data-day="星期二"><td data-label="星期">星期二</td><td data-label="早上">準備早餐、Hazel 奶同食物、抹 playmat/high chair、準備校服/運動衫</td><td data-label="下午">按安排換床單或吸 mattress，摺衫，整理 Howard 房</td><td data-label="晚上">煮晚餐，洗奶樽，準備翌日返學衫</td></tr><tr data-day="星期三"><td data-label="星期">星期三</td><td data-label="早上">準備早餐/snacks、BB 區清潔，如需要去街市</td><td data-label="下午">移開 floor mats，吸塵拖地，清潔飯枱同椅</td><td data-label="晚上">煮晚餐，深層清潔 Hazel high chair straps/罅隙同 Hazel 單車</td></tr><tr data-day="星期四"><td data-label="星期">星期四</td><td data-label="早上">準備早餐/snacks，去濕街市，檢查水果同 Hazel 食材</td><td data-label="下午">整理同清潔雪櫃，掉過期食物，預備晚餐材料</td><td data-label="晚上">煮晚餐，deep clean kitchen，列出要買物品</td></tr><tr data-day="星期五"><td data-label="星期">星期五</td><td data-label="早上">準備早餐，BB 區清潔，仔細洗杯同水樽邊</td><td data-label="下午">抹門窗，如有安排就洗窗簾或 sofa dolls，準備週末材料</td><td data-label="晚上">煮晚餐，洗奶樽，準備 pancake 材料</td></tr><tr data-day="星期六"><td data-label="星期">星期六</td><td data-label="早上">準備 pancake 早餐，可去街市，檢查週末食材</td><td data-label="下午">輪流清潔冷氣隔塵網、整理玩具、deep clean high chair</td><td data-label="晚上">煮晚餐，處理剩食，浸湯料或預切翌日蔬菜</td></tr><tr data-day="星期日"><td data-label="星期">星期日</td><td data-label="早上">簡單早餐，整理雪櫃同 pantry，點算下星期食材</td><td data-label="下午">摺衫、季節收納、整理玩具，移走 Hazel 危險細玩具</td><td data-label="晚上">煮晚餐，準備星期一校服/snacks，廚房執尾</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section>
+      <section data-section="chores">
         <h2>每週 / 輪流家務</h2>
         
     <div class="table-wrap">
       <table class="">
         <thead><tr><th>時間</th><th>工作</th></tr></thead>
-        <tbody><tr><td>每日早上</td><td>抹 Hazel playmat 同 high chair，set up play area；用毛巾洗杯邊同水樽邊，有茶漬用洗潔精洗乾淨再沖清。</td></tr><tr><td>星期一</td><td>按安排換所有床單；整理 Howard 玩具，移走對 Hazel 危險嘅細玩具。</td></tr><tr><td>每星期一至兩次</td><td>熨 Howard 校服/運動衫同 Sir business shirts。</td></tr><tr><td>每星期</td><td>吸塵、吸 mattress，用清水抹兩個小朋友房。</td></tr><tr><td>每星期</td><td>清理同整理雪櫃，掉過期食物，deep clean kitchen。</td></tr><tr><td>每星期 / 需要時</td><td>清潔冷氣隔塵網同抹冷氣；開冷氣時約 25-26C。</td></tr><tr><td>輪流深層清潔</td><td>Deep clean Hazel high chair，包括 straps 同藏食物嘅罅隙；deep clean Hazel 單車。</td></tr><tr><td>輪流深層清潔</td><td>移開 floor mats，吸塵拖地；清潔飯枱、椅、鞋架、鞋櫃。</td></tr><tr><td>按安排</td><td>抹門窗；需要時洗窗簾或 sofa dolls。</td></tr><tr><td>空氣質素</td><td>Howard / Hazel 不在房內時可開空氣清新機；早上合適時開窗通風。</td></tr></tbody>
+        <tbody><tr data-day="每日早上"><td data-label="時間">每日早上</td><td data-label="工作">抹 Hazel playmat 同 high chair，set up play area；用毛巾洗杯邊同水樽邊，有茶漬用洗潔精洗乾淨再沖清。</td></tr><tr data-day="星期一"><td data-label="時間">星期一</td><td data-label="工作">按安排換所有床單；整理 Howard 玩具，移走對 Hazel 危險嘅細玩具。</td></tr><tr data-day="每星期一至兩次"><td data-label="時間">每星期一至兩次</td><td data-label="工作">熨 Howard 校服/運動衫同 Sir business shirts。</td></tr><tr data-day="每星期"><td data-label="時間">每星期</td><td data-label="工作">吸塵、吸 mattress，用清水抹兩個小朋友房。</td></tr><tr data-day="每星期"><td data-label="時間">每星期</td><td data-label="工作">清理同整理雪櫃，掉過期食物，deep clean kitchen。</td></tr><tr data-day="每星期 / 需要時"><td data-label="時間">每星期 / 需要時</td><td data-label="工作">清潔冷氣隔塵網同抹冷氣；開冷氣時約 25-26C。</td></tr><tr data-day="輪流深層清潔"><td data-label="時間">輪流深層清潔</td><td data-label="工作">Deep clean Hazel high chair，包括 straps 同藏食物嘅罅隙；deep clean Hazel 單車。</td></tr><tr data-day="輪流深層清潔"><td data-label="時間">輪流深層清潔</td><td data-label="工作">移開 floor mats，吸塵拖地；清潔飯枱、椅、鞋架、鞋櫃。</td></tr><tr data-day="按安排"><td data-label="時間">按安排</td><td data-label="工作">抹門窗；需要時洗窗簾或 sofa dolls。</td></tr><tr data-day="空氣質素"><td data-label="時間">空氣質素</td><td data-label="工作">Howard / Hazel 不在房內時可開空氣清新機；早上合適時開窗通風。</td></tr></tbody>
       </table>
     </div>
     
       </section>
 
-      <section id="reminders-zh">
+      <section id="reminders-zh" data-section="rules">
         <h2>長期記憶重點</h2>
-        <ul class="rule-list"><li><strong>家庭分組</strong><span>大人組：Sir、媽媽、Howard / Power</span></li><li><strong>家庭分組</strong><span>BB 組：Hazel（一歲左右）</span></li><li><strong>飲食 pattern</strong><span>平日早餐主力：三文治、通粉、番薯包/蒸番薯、奶/乳酪。</span></li><li><strong>飲食 pattern</strong><span>星期六/週末保留 banana pancakes。</span></li><li><strong>飲食 pattern</strong><span>午餐通常簡單：湯粉麵、粥、餃子、意粉、炒飯。</span></li><li><strong>晚餐 pattern</strong><span>晚餐通常係主菜 + 魚/蛋/豆腐 + 蔬菜 + 飯/粉/意粉。</span></li><li><strong>Hazel 規則</strong><span>Hazel recent schedule：約 8:00 / 11:30 / 1:30-2:00 / 3:30 / 6:30 / 9:30。</span></li><li><strong>Hazel 規則</strong><span>肉菜全部切細，食物 fully cooked，無鹽、無豉油、無重味調味。</span></li><li><strong>Hazel 敏感</strong><span>Hazel 唔食蛋同南瓜。</span></li><li><strong>安全提醒</strong><span>不要單獨留 Hazel 在 high chair；不要帶 Hazel/Howard 入廚房。</span></li><li><strong>返學 routine</strong><span>Howard/Power 上學日約 6:50/6:55 起身，7:25 前食完早餐同換好衫。</span></li></ul>
+        <ul class="rule-list"><li><strong>家庭分組</strong><span>大人組：Sir、媽媽、Howard</span></li><li><strong>家庭分組</strong><span>BB 組：Hazel（一歲左右）</span></li><li><strong>飲食 pattern</strong><span>平日早餐主力：三文治、通粉、番薯包/蒸番薯、奶/乳酪。</span></li><li><strong>飲食 pattern</strong><span>星期六/週末保留 banana pancakes。</span></li><li><strong>飲食 pattern</strong><span>午餐通常簡單：湯粉麵、粥、餃子、意粉、炒飯。</span></li><li><strong>晚餐 pattern</strong><span>晚餐通常係主菜 + 魚/蛋/豆腐 + 蔬菜 + 飯/粉/意粉。</span></li><li><strong>Hazel 規則</strong><span>Hazel recent schedule：約 8:00 / 11:30 / 1:30-2:00 / 3:30 / 6:30 / 9:30。</span></li><li><strong>Hazel 規則</strong><span>肉菜全部切細，食物 fully cooked，無鹽、無豉油、無重味調味。</span></li><li><strong>Hazel 敏感</strong><span>Hazel 唔食蛋同南瓜。</span></li><li><strong>安全提醒</strong><span>不要單獨留 Hazel 在 high chair；不要帶 Hazel/Howard 入廚房。</span></li><li><strong>返學 routine</strong><span>Howard 上學日約 6:50/6:55 起身，7:25 前食完早餐同換好衫。</span></li></ul>
       </section>
 
-      <section>
+      <section data-section="rules">
         <h2>給姐姐的溫馨提示</h2>
-        <ul class="rule-list"><li><strong>廚房安全</strong><span>煮飯或處理熱食時，請不要帶 Hazel 或 Howard 入廚房。</span></li><li><strong>熱食</strong><span>攞熱碟熱碗請用兩條厚毛巾托住，不要用夾夾熱碟。</span></li><li><strong>BB 安全</strong><span>哄 Hazel 瞓覺要輕柔，不要大力搖。</span></li><li><strong>High chair</strong><span>Hazel 會攀爬，不可以單獨留在 high chair。</span></li><li><strong>奶溫</strong><span>Hazel 奶溫通常 41-42C，暖但不可太熱。</span></li><li><strong>食物溫度</strong><span>Hazel 粥/軟飯/水大約 40C 或以下，唔好太熱。</span></li><li><strong>食物質感</strong><span>Hazel 肉菜要切得非常細，粥/軟飯唔好太水，幫她學咀嚼。</span></li><li><strong>Hazel 調味</strong><span>Hazel 食物要軟、熟、無鹽、無豉油、無重味。</span></li><li><strong>Hazel 敏感</strong><span>Hazel 唔食蛋同南瓜，包括蛋黃、蒸蛋、含蛋 pancake、南瓜蓉同南瓜飯。</span></li><li><strong>魚蝦</strong><span>Hazel 食魚要拆清骨；蝦要切細粒。</span></li><li><strong>新鮮度</strong><span>煮 Hazel / Howard / Power 食物前要檢查新鮮度同 expiry date。</span></li><li><strong>買餸</strong><span>去街市時要順便檢查 Hazel 食材、水果、奶類、BB 食材是否需要補貨。</span></li><li><strong>BB 區</strong><span>每日早上抹 Hazel playmat 同 high chair，set up play area。</span></li><li><strong>水果同水</strong><span>Hazel 便便硬時，日間要多水果同水。</span></li><li><strong>瞓覺時間</strong><span>如 Hazel 到飲奶時間仍在瞓而你不肯定點做，請先問；通常奶要按時餵。</span></li><li><strong>衣物</strong><span>Hazel 瞓覺如太多衫，要減一件，避免太熱。</span></li><li><strong>玩具</strong><span>細玩具不要放在 Hazel play area，避免放入口。</span></li><li><strong>Howard/Power</strong><span>協助 school snacks、放學沖涼、功課或休息時間。</span></li><li><strong>返學衫</strong><span>前一晚準備好返學衫：星期一、二、五校服；星期三、四運動衫。</span></li><li><strong>杯同水樽</strong><span>每日早上仔細洗杯邊同水樽邊，有茶漬用洗潔精洗淨再沖清。</span></li><li><strong>廚房</strong><span>煮完飯要收拾廚房，剩食妥善存放，晚上檢查翌日食材。</span></li></ul>
+        <ul class="rule-list"><li><strong>廚房安全</strong><span>煮飯或處理熱食時，請不要帶 Hazel 或 Howard 入廚房。</span></li><li><strong>熱食</strong><span>攞熱碟熱碗請用兩條厚毛巾托住，不要用夾夾熱碟。</span></li><li><strong>BB 安全</strong><span>哄 Hazel 瞓覺要輕柔，不要大力搖。</span></li><li><strong>High chair</strong><span>Hazel 會攀爬，不可以單獨留在 high chair。</span></li><li><strong>奶溫</strong><span>Hazel 奶溫通常 41-42C，暖但不可太熱。</span></li><li><strong>食物溫度</strong><span>Hazel 粥/軟飯/水大約 40C 或以下，唔好太熱。</span></li><li><strong>食物質感</strong><span>Hazel 肉菜要切得非常細，粥/軟飯唔好太水，幫她學咀嚼。</span></li><li><strong>Hazel 調味</strong><span>Hazel 食物要軟、熟、無鹽、無豉油、無重味。</span></li><li><strong>Hazel 敏感</strong><span>Hazel 唔食蛋同南瓜，包括蛋黃、蒸蛋、含蛋 pancake、南瓜蓉同南瓜飯。</span></li><li><strong>魚蝦</strong><span>Hazel 食魚要拆清骨；蝦要切細粒。</span></li><li><strong>新鮮度</strong><span>煮 Hazel / Howard 食物前要檢查新鮮度同 expiry date。</span></li><li><strong>買餸</strong><span>去街市時要順便檢查 Hazel 食材、水果、奶類、BB 食材是否需要補貨。</span></li><li><strong>BB 區</strong><span>每日早上抹 Hazel playmat 同 high chair，set up play area。</span></li><li><strong>水果同水</strong><span>Hazel 便便硬時，日間要多水果同水。</span></li><li><strong>瞓覺時間</strong><span>如 Hazel 到飲奶時間仍在瞓而你不肯定點做，請先問；通常奶要按時餵。</span></li><li><strong>衣物</strong><span>Hazel 瞓覺如太多衫，要減一件，避免太熱。</span></li><li><strong>玩具</strong><span>細玩具不要放在 Hazel play area，避免放入口。</span></li><li><strong>Howard</strong><span>協助 school snacks、放學沖涼、功課或休息時間。</span></li><li><strong>返學衫</strong><span>前一晚準備好返學衫：星期一、二、五校服；星期三、四運動衫。</span></li><li><strong>杯同水樽</strong><span>每日早上仔細洗杯邊同水樽邊，有茶漬用洗潔精洗淨再沖清。</span></li><li><strong>廚房</strong><span>煮完飯要收拾廚房，剩食妥善存放，晚上檢查翌日食材。</span></li></ul>
       </section>
     </main>
   </div>
@@ -441,6 +611,22 @@
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => setLanguage(button.dataset.switchLang));
+    });
+
+    document.querySelectorAll(".reader-tools button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const view = button.closest(".lang-view");
+        const focus = button.dataset.focus;
+        view.querySelectorAll(".reader-tools button").forEach((item) => {
+          item.classList.toggle("active", item === button);
+        });
+        view.querySelectorAll("section[data-section]").forEach((section) => {
+          section.classList.toggle(
+            "is-filtered-out",
+            focus !== "all" && section.dataset.section !== focus
+          );
+        });
+      });
     });
 
     let savedLanguage = "en";
