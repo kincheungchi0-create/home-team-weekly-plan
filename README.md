@@ -1,6 +1,6 @@
 # Home Team Weekly Plan
 
-Static HTML weekly household plan for helpers.
+Vite + TypeScript weekly household plan for helpers.
 
 ## Contents
 
@@ -12,4 +12,8 @@ Static HTML weekly household plan for helpers.
 
 ## Deployment
 
-This is a static site. Vercel can serve `index.html` directly without a build step.
+This is a Vite static site. Vercel should install dependencies and run:
+
+```bash
+npm run build
+```
