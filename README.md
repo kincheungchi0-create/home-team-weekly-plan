@@ -4,7 +4,7 @@ Vite + TypeScript weekly household plan for helpers.
 
 ## Contents
 
-- Weekly menu for adults and Howard / Power
+- Weekly menu for adults and Howard
 - Hazel feeding schedule
 - Nutrition planning rules
 - Critical safety rules
